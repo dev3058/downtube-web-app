@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="page">
+	<!-- navbar -->
+	<div class="navbar">
+		<div class="navbar-inner sliding">
+			<div class="left">
+				<a class="link external back" href="../">
+					<i class="fa fa-chevron-left"></i>
+				</a>
+			</div>
+			<div class="title">Video Player</div>
+	</div>
+	</div>
+	<!-- end navbar -->
+	<div class="page-content">
+		<!-- video single -->
+		<div class="video-single">
+			<div class="video-iframe" {% if shorts == 'True' %} style="height: 100vh;" {% endif %} >
+				<iframe src="https://www.youtube.com/embed/{{yt_obj.video_id}}?feature=oembed" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+			</div>
+			<div class="author">
+				<div class="container">
+					<img src="{{channel_image}}" alt="{{yt_obj.author}}">
+					<div class="text">
+						<h5>{{yt_obj.title}}</h5>
+						<ul>
+							<li><h6>{{yt_obj.author}}</h6></li>
+							<li><i class="fa fa-calendar"></i> {{ yt_obj.publish_date|date:"d M Y" }}</li>
+							<li><i class="fa fa-eye"></i> {% widthratio yt_obj.views 1000 1 %}K</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="content">
+				<div class="container">
+					<p>
+						{{yt_obj.description|linebreaks|truncatewords:35 }}
+					</p>
+				</div>
+			</div>
+			<div class="item-comment">
+				<div class="container">
+					<div class="item" style="color: #000000cc;">	
+						<img  src="{% if shorts == 'True' %} {% static 'img/youtube-shorts.png' %} {% else %} {% static 'img/play.png' %} {% endif %}">
+						<div class="text">
+							Download | .mp4 Video
+							
+								<form method="post"  action="{% url 'videoform' yt_obj.video_id  %}" onsubmit = "showloaderVideoonly()">
+									{% csrf_token %}
+
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" checked  type="radio" name="videoformoptions" id="videoform320px" value="320px">
+										<label class="form-check-label" for="videoform320px">360p</label>
+									  </div>
+									  
+									  <div class="form-check form-check-inline">
+										<input class="form-check-input" type="radio" name="videoformoptions" id="videoform720px" value="720px">
+										<label class="form-check-label" for="videoform720px">720p</label>
+									  </div>
+									  
+									  
+									  <div class="form-check form-check-inline">
+										<input class="form-check-input" type="radio" name="videoformoptions" id="videoform1080px" {% if high_resol %} value="1080px" {% else %} disabled{% endif %}  >
+										<label class="form-check-label" for="videoform1080px">1080p</label>
+									  </div>
+									  
+									  
+							<div class="form-check form-check-inline pl-0">
+								<button class="p-1" style="background-color: white;border: none;" type="submit" onsubmit ="showloaderonclick('{% url 'index' %}')">
+							<p id="downloadVideo" class="form-check-label" style="color:#0d6efde3;">Download
+								<svg id="downloadVLink" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down-circle" viewBox="0 0 16 16">
+							<path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V4.5z"/>
+							</svg>
+						
+						</p>
+							</button>
+							</div>
+							</form>
+							
+						</div>
+					</div>
+					{% if shorts == 'False' %}
+					<div class="item" style="color: #000000cc;">
+						<img  style="border-radius: 0%;" src="{% static 'img/music.png' %}" alt="">
+						<div class="text">
+						
+							Download | .mp3 Audio
+								<form method="post" class="pt-1" action="{% url 'audioform' yt_obj.video_id  %}" onsubmit ="showloaderAudioonly()">
+									{% csrf_token %}
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" checked  type="radio" name="audioformoptions" id="audioform48" value="139">
+										<label class="form-check-label" for="audioform48">Low</label>
+									</div>
+	
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="radio" name="audioformoptions" id="audioform128" value="140">
+										<label class="form-check-label" for="audioform128">Normal</label>
+									</div>
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="radio" name="audioformoptions" id="audioform160" value="250">
+										<label class="form-check-label" for="audioform160"> High </label>
+									</div>
+										<div class="form-check form-check-inline pl-0">
+									<button style="background-color: white;border: none;" type="submit" >
+										<p id="downloadAudio" class="form-check-label" style="color:#0d6efde3;">Download 
+											<svg id="downloadALink" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down-circle" viewBox="0 0 16 16">
+												<path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V4.5z"/>
+										</svg>
+									</p>
+										</button>
+										</div>
+								</form>
+						</div>
+					</div>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	</div>
+		<!-- end video single -->
+	</div>
+</div>
+{% endblock content %}

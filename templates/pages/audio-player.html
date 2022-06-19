@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% load static %}
+<!-- initial page -->
+{% block content %}
+<div class="page">
+	<!-- navbar -->
+	<div class="navbar">
+		<div class="navbar-inner sliding">
+			<div class="left">
+				<a class="link external back" href="../">
+					<i class="fa fa-chevron-left"></i>
+				</a>
+			</div>
+			<div class="title">DownTube Audio</div>
+		</div>
+	</div>
+	<!-- end navbar -->
+	<div class="page-content">
+		<!-- blog-details -->
+		<div class="blog-details section-pages">
+			<div class="container">
+				<div class="head">
+					<img src="{{song_image}}">
+					<h5>{{track_name}}</h5>
+					<span>
+                        {% for artist in artists_list %}
+                        ● {{artist}}
+                        {% endfor %}
+                        |  {{release_date}}</span>
+				</div>
+				<div class="share" style="
+                {% if video_id  %} padding-bottom: 1.5rem; {% endif %}
+                border-bottom: 1px #0000005c solid;">
+                {% if video_id %}
+                <a class="link external back" target="_blank" href="{% url 'videoplayer' video_id  %}">
+					<div class="container" style="border: 1px solid #c87777; padding: 1rem; border-radius: 2px;">
+
+					<h5>Video Available:</h5>
+					<span>The video album for {{track_name}} is available for download.</span>
+
+				    </div>
+                </a>
+                {% endif %}
+				</div>
+				<div class="item-comment">
+                    <div class="container" style="
+                    padding-right: 0;padding-left: 10;">
+                        <div class="item" style="color: #000000cc;">
+                            <div class="text" style="
+                            margin-top: 1.5rem;
+                            font-size: 12px;
+                            margin-bottom: 2rem;">
+                                Download | .mp3 Song ({{duration}} min)
+                                    <form method="post" class="pt-1" action="{% url 'audioform' audio_id  %}" onsubmit ="showloaderAudioonly()">
+                                        {% csrf_token %}
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" checked  type="radio" name="audioformoptions" id="audioform48" value="249">
+                                            <label class="form-check-label" for="audioform48"> Low </label>
+                                        </div>
+
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="audioformoptions" id="audioform128" value="250">
+                                            <label class="form-check-label" for="audioform128"> Normal </label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="audioformoptions" id="audioform160" value="251">
+                                            <label class="form-check-label" for="audioform160"> High </label>
+                                        </div>
+                                            <div class="form-check form-check-inline pl-0" style="padding-left: 5px;">
+                                        <button style="background-color: white;border: none;" type="submit" >
+                                            <p id="downloadAudio" class="form-check-label" style="color:#0d6efde3;">Download
+                                                <svg id="downloadALink" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down-circle" viewBox="0 0 16 16">
+                                                    <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V4.5z"/>
+                                            </svg>
+                                        </p>
+                                            </button>
+                                            
+                                            </div>
+                                            <p class="small text-muted"><sup style="color : red">*</sup>Choose the quality for your song, but the result may vary on provided bandwidth.</p>
+                                    </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+			</div>
+		</div>
+		<!-- end blog-details -->
+	</div>
+</div>
+
+{% endblock content %}

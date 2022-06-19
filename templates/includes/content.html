@@ -1,0 +1,26 @@
+{% load static %}
+{% load mathfilters %}
+<a class="link external"  href="{% url 'videoplayer' link.video_id %}">
+<div class="content">
+    <img src="{{ link.thumbnail_url }}" alt="">
+    <div class="duration">
+        <span>{{ link.length|intdiv:60  }}:{{ link.length|mod:60  }}</span>
+    </div>
+    <div class="author">
+        {% for key,value in channel_images.items %}
+            {% if key == link.channel_id %}
+            <img src="{{ value }}" alt="{{ link.author }}">
+            {% endif %}
+        {% endfor %}
+        
+        <div class="text">
+            <h5>{{ link.title }}</h5>
+            <ul>
+                <li><h6>{{ link.author }}</h6></li>
+                <li><i class="fa fa-calendar"></i> {{ link.publish_date|date:"d M Y" }}</li>
+                <li><i class="fa fa-eye"></i> {% widthratio link.views 1000 1 %}K</li>
+            </ul>
+        </div>
+    </div>
+</div>
+</a>

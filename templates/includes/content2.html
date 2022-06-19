@@ -1,0 +1,14 @@
+{% load static %}
+{% load mathfilters %}
+
+    <div class="author">
+        <div class="text">
+            <h5><a href="{% url 'videoplayer' link.video_id %}">{{ link.title }}</a></h5>
+            <ul>
+                
+                <li><h6><a href="/channel/">{{ link.author }}</a></h6></li>
+                <li><i class="fa fa-calendar"></i> {{ link.publish_date|date:"d M Y" }}</li>
+                <li><i class="fa fa-eye"></i> {% widthratio link.views 1000 1 %}K</li>
+            </ul>
+        </div>
+    </div>

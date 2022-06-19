@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block meta_data %} 
+<meta http-equiv = "refresh" content = "10; url = /" />
+{% endblock meta_data %}
+{% block content %}
+<div class="page">
+	<div class="page-content">
+		<div class="about-error section-pages">
+			<div class="container">
+				{% if exception %}
+				<img src="{% static 'img/oops.jpg' %}" alt="image">
+				<h5>Something Went Wrong</h5>
+				<p>Error Occur : {{error}}</p>
+				<p>{{exception}}</p>
+				{% else %}
+				<img src="{% static 'img/done.gif' %}" alt="image">
+				<h5>{{success}}</h5>
+				{% endif %}
+				
+				{% for message in messages  %}
+				<div class="alert alert-warning" role="alert">
+  					{{message}}
+				</div>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock content %}

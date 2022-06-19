@@ -1,0 +1,262 @@
+{% extends 'base.html' %}
+{% load static %}
+<!-- initial page -->
+{% block content %}
+
+<div class="page">
+	{% comment %} offcanvas {% endcomment %}
+	<div style="border-radius: 20px 20px 0px 0px; box-shadow: 4px 0px 8px 0px #888888;" class="offcanvas offcanvas-bottom" tabindex="-1" id="offcanvasBottom" aria-labelledby="offcanvasBottomLabel">
+		<div class="offcanvas-header">
+		  <h5 class="offcanvas-title" id="offcanvasBottomLabel">Paste and Go</h5>
+		</div>
+		<div class="small lsearch-video">
+			<div class="container" style="padding: 0px 25px;">
+			  <form method="post" name = 'link-searched-content' onsubmit ="showloaderonclick('{% url 'index' %}')" action="/video-link">
+				{% csrf_token %}
+				{% for field in linkform %}
+				{{field}} 
+				{% endfor %}
+				<button type="submit">🚀</button>
+			  </form>
+			  <div class="" style="padding-top: 7px;font-size: 12px;">
+				  YouTube Video / Music / shorts <img src="/static/img/youtube-shorts.png" style="width: 3%;"> / Soptify Music <img src="/static/img/spotify.png" style="width: 4%;"> 
+					
+				</div>
+		  </div>
+		  
+		</div>
+		
+  </div>
+{% comment %} end-offcanvas {% endcomment %}
+	<!-- toolbar bottom -->
+	<div class="nge-tollbar-bottom toolbar tabbar tabbar-labels toolbar-bottom">
+		<div class="toolbar-inner">
+			<a href="#tab-1" class="tab-link tab-link-active no-hairlines-md">
+				<i class="fa fa-home"></i>
+				<span class="tabbar-label">Home</span>
+			</a>
+			{% comment %} <a href="#tab-2" class="tab-link">
+				<i class="fa fa-clone"></i>
+				<span class="tabbar-label">Categories</span>
+			</a> {% endcomment %}
+			<a class="tab-link" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom">
+				<i class="fa fa-link"></i>
+				<span class="tabbar-label">Magic Link</span>
+			</a>
+			<a href="#tab-4" class="tab-link">
+				<i class="fa fa-search"></i>
+				<span class="tabbar-label">Search</span>
+			</a>
+			<a href="#tab-5" class="tab-link">
+				<i class="fa fa-bars"></i>
+				<span class="tabbar-label">Pages</span>
+			</a>
+		</div>
+	</div>
+	<!-- end toolbar bottom -->
+
+
+	<!-- tabs content -->
+	<div class="tabs-animated-wrap">
+		<div class="tabs">
+			<!-- tabs 1 -->
+			<div id="tab-1" class="page-content tab tab-active">
+				<!-- home pages -->
+				<div class="home-page videos">
+					<div class="container">
+						<div class="head">
+							<h1><span><i class="fa fa-play"></i></span>DownTube</h1>
+						</div>
+						{% if yt_obj == "False" %}
+						<div class="about-us section-pages">
+							<div class="container" style="padding: 6.5rem 4.0rem;opacity: 0.85;">
+								<form method="post" onsubmit ="showloaderonclick('{% url 'index' %}')"  action="/">
+									{% csrf_token %}
+									<input type="hidden" name="db_update">
+									<button type="submit" style="border: none;background: transparent;padding: 0;">
+										<img src="{% static 'img/update.png' %}" style="width: 100%;">				
+									</button>
+									<p style="margin-top: 0.7rem;line-height: 17px;">Click to load updates that sound trendy to you 😎. It may be slow to load.</p>
+								</form>
+							</div>
+						</div>	
+						{% else %}
+							{% for link in yt_obj %}
+							{% include "includes/content.html" %}
+							{% endfor %}
+						{% endif %}
+						<div class="space"></div>
+					</div>
+				</div>
+				<!-- end home pages -->
+			</div>
+			<!-- end tabs 1 -->
+			
+			
+			<!-- tabs 4 -->
+			<div id="tab-4" class="tab page-content">
+				<!-- search -->
+				<div class="search-video">
+					<div class="container">
+						<form method="post" name = 'searched-content' onsubmit ="showloaderonclick('{% url 'index' %}')"  action="/">
+							{% csrf_token %}
+							{% for field in form %}
+							{{field}} 
+							{% endfor %}
+							<button type="submit" ><i class="fa fa-search"></i></button>
+							<datalist id="lst-autocomplete">
+							{% for data in search_history  %}
+								<option value="{{data}}"></option>
+							{% endfor %}
+							</datalist>
+						</form>
+						
+					</div>
+				</div>
+
+				<!-- categories -->
+				<div class="categories p-1 pt-3">
+					<div class="container" style="padding: 5px 15px;">
+						{% comment %} <div class="space" style="padding: 0.3rem;border-top: 1px solid;"></div> {% endcomment %}
+						
+						{% comment %} <div class="space" style="padding: 0.3rem;border-top: 1px solid;"></div> {% endcomment %}
+						<div class="home-page videos" style="
+						border: 1px dashed #b1adad;
+						padding: 1rem;">
+								<div class="about-us section-pages">
+									<div class="container">
+										<div class="head" style="
+										text-align: center;">
+											<h1><span><i class="fa fa-play"></i></span>DownTube</h1>
+										</div>
+										<p style="
+										margin-bottom: 1rem;
+										text-align: center;">
+										 <h4 style="
+										 text-align: center;
+										 margin-bottom: 1rem;">💫 Now Supports </h4> 
+										</p>
+										<div class="row">
+										<div class="content" style="
+										display: flex;">
+											<div class="border bg-light supported_platform">
+												<img src="{% static 'img/youtube.png' %}">
+											</div>
+											<div class="border bg-light supported_platform">
+												<img src="{% static 'img/youtube-music.png' %}">
+											</div>
+											<div class="border bg-light supported_platform">
+												<img src="{% static 'img/youtube-shorts.png' %}">
+											</div>
+											<div class="border bg-light supported_platform">
+												<img src="{% static 'img/spotify.png' %}">
+											</div>
+										</div>
+										
+									</div>
+										<p style="font-size: 15px;color: #454545;">
+											🥳 Congratulations, to make our 🚀 DownTube more 🎵 music-friendly
+											 we have added Spotify and YouTube Music to its collection. 	
+										</p>
+		
+										<div class="container" style="text-align:center;margin-top: 3rem;margin-bottom: 3rem;">
+								
+											<h5 style="
+											margin-bottom: 5px;">🪄 Magic Link ?</h5>
+											<span style="
+											font-size: 14px;
+											line-height: initial;">
+											Just paste your (supported) shared link inside the Magic Link tab to make it accessible.
+										</span>
+											
+											</div>
+									</div>
+								</div>	
+								<div class="space"></div>
+						</div>
+					</div>
+				</div>
+				<!-- end categories -->
+				<!-- end search -->
+			</div>
+			<!-- end tabs 4 -->
+			
+			<!-- tabs 5 -->
+			<div id="tab-5" class="page-content tab">
+				<!-- pages -->
+				<div class="page-content" style="padding-bottom: 1rem;">
+					<!-- blog-details -->
+					<div class="blog-details">
+						<div class="container">
+							<div class="comments">
+								<h5>About us</h5>
+								<div class="head">
+									<p style="margin: 10px 0px">
+										DownTube is a free to use - Content downloader service that 
+										works upon YouTube based open source APIs. It is developed and 
+										handled by M&C.
+									</p>
+								</div>
+								<div class="content">
+									<img src="{% static 'img/devanand.png' %}" alt="">
+									<div class="text">
+										<span><a href="https://github.com/mansion3058" target="_blank" >Dev Anand</a> </span>
+										<p>Coder cum Web Developer, working at back-end dev.anand@3058.in | Dev3058</p>
+									</div>
+								</div>
+								<div class="content" style="margin-top: 15px;">
+									<img src="{% static 'img/devorg.png' %}" alt="">
+									<div class="text">
+										<span><a href="https://github.com/mansion3058" target="_blank" >DEV org.</a></span>
+										<p>Development Team under the supervision of Mr. Shah & Co. | mail@3058.in </p>
+									</div>
+								</div>
+							</div>
+							<div class="comments-post">
+								<h5>Feedback Box</h5>
+								<form method="post" name='feedback-comment' onsubmit ="showloaderonclick('{% url 'index' %}')" action="{% url 'commentform' %}">
+									{% csrf_token %}
+									{% for field in feedbackform %}
+										{{field}}
+									{% endfor %}
+									<button type="submit" class="button-default" >Comments</button>
+								</form>
+							</div>
+							<div class="head">
+								<p>Kindly provide valid and meaningful content, we will try to accept your concern as soon as possible. </p>
+							</div>
+							<div class="share">
+								<h5>Follow on :</h5>
+								<ul>
+									<li><a href="https://www.facebook.com/dev3058" class="facebook link external" target="_blank" ><i style="font-size: 20px;" class="fa fa-facebook"></i></a></li>
+									<li><a href="https://twitter.com/dev3058" class="twitter link external" target="_blank" ><i style="font-size: 20px;" class="fa fa-twitter"></i></a></li>
+									<li><a href="https://github.com/dev3058" class="git link external" target="_blank" ><i style="font-size: 20px;" class="fa fa-github"></i></a></li>
+									<li><a href="https://www.instagram.com/anand.dev3058/" class="insta link external" target="_blank" ><i style="font-size: 20px;" class="fa fa-instagram"></i></a></li>
+									
+								</ul>
+							</div>
+							<footer class="page-footer font-small  mb-1 text-muted" style="background-color: #F7F7F7;margin-top: 2rem">
+
+								<!-- Copyright -->
+								<div class="footer-copyright text-center py-3 d-none d-lg-block d-xl-block">© 2020 Copyright : mansion3058 | Bulit under supervision of Mr. Shah & Company
+								</div>
+								
+								<div class="footer-copyright text-center py-3 d-sm-block d-lg-none">© 2022 mansion3058 (M30)
+								</div>
+								<!-- Copyright -->
+							  
+							  </footer>
+						</div>
+					</div>
+					<!-- end blog-details -->
+				</div>
+				<!-- end pages -->
+			</div>
+			<!-- end tabs 5 -->
+
+		</div>
+	</div>
+	<!-- end tabs content -->
+</div>
+<!-- end initial page -->
+{% endblock content %}

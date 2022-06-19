@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="page">
+	<!-- navbar -->
+	<div class="navbar">
+		<div class="navbar-inner sliding">
+			<div class="left">
+				<a class="link external" href="../">
+					<i class="fa fa-chevron-left"></i>
+				</a>
+			</div>
+			<div class="title">Search Results</div>
+		</div>
+	</div>
+	<!-- end navbar -->
+	<div class="page-content">
+
+			<!-- videos -->
+			<div class="videos">
+				<div class="container">
+					{% for link in yt_obj %}
+						{% include "includes/content.html" %}
+					{% endfor %}
+				</div>
+			</div>
+			<!-- end videos -->
+		</div>
+		<!-- end search results -->
+	</div>
+</div>
+
+{% endblock content %}
