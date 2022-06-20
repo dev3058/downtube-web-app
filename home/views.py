@@ -219,7 +219,7 @@ def mailserver(request,receiver,full_name,subject,message):
         html_content=email_body,
         )
     try:    
-        email = SendGridAPIClient('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')
+        email = SendGridAPIClient(settings.SENDGRID_API_KEY)
         email.send(message)
         messages.info(request,'Thanks for your Feedback')
         return render(request,"pages/about-errors.html",{'success':'Request Accepted Successfully'})

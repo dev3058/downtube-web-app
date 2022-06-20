@@ -136,5 +136,5 @@ MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-
+SENDGRID_API_KEY = os.environ.get('SENDGRID_API_KEY')
 EMAIL_SERVER_HANDLER = os.environ.get('EMAIL_SERVER_HANDLER')
