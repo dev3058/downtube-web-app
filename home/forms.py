@@ -8,7 +8,7 @@ class SearchForm(forms.Form):
     }))
 class linkSearchForm(forms.Form):
     link_search_data = forms.URLField(widget = forms.URLInput(attrs={
-        'placeholder' : 'YouTube / Spotify Shared link...',
+        'placeholder' : '⬇️ Supported Shared link....',
     }), help_text='Provide Valid YouTube Link')
 
 class FeedbackForm(forms.Form):

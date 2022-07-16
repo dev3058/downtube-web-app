@@ -5,7 +5,7 @@
 
 <div class="page">
 	{% comment %} offcanvas {% endcomment %}
-	<div style="border-radius: 20px 20px 0px 0px; box-shadow: 4px 0px 8px 0px #888888;" class="offcanvas offcanvas-bottom" tabindex="-1" id="offcanvasBottom" aria-labelledby="offcanvasBottomLabel">
+	<div class="offcanvas offcanvas-bottom magic-link" tabindex="-1" id="offcanvasBottom" aria-labelledby="offcanvasBottomLabel">
 		<div class="offcanvas-header">
 		  <h5 class="offcanvas-title" id="offcanvasBottomLabel">Paste and Go</h5>
 		</div>
@@ -18,9 +18,8 @@
 				{% endfor %}
 				<button type="submit">🚀</button>
 			  </form>
-			  <div class="" style="padding-top: 7px;font-size: 12px;">
-				  YouTube Video / Music / shorts <img src="/static/img/youtube-shorts.png" style="width: 3%;"> / Soptify Music <img src="/static/img/spotify.png" style="width: 4%;"> 
-					
+			  <div class="" style="padding-top: 8px;font-size: 12px;">YouTube Video / YouTube Music / 
+				YouTube Shorts / Soptify Music / Apple Music 
 				</div>
 		  </div>
 		  
@@ -149,14 +148,17 @@
 												<img src="{% static 'img/youtube-shorts.png' %}">
 											</div>
 											<div class="border bg-light supported_platform">
-												<img src="{% static 'img/spotify.png' %}">
+												<img style="margin-top: 10%;" src="{% static 'img/spotify.png' %}">
+											</div>
+											<div class="border bg-light supported_platform">
+												<img src="{% static 'img/applemusic.png' %}">
 											</div>
 										</div>
 										
 									</div>
 										<p style="font-size: 15px;color: #454545;">
-											🥳 Congratulations, to make our 🚀 DownTube more 🎵 music-friendly
-											 we have added Spotify and YouTube Music to its collection. 	
+											DownTube provides you the freedom to download any song using a shared-link
+											from the platforms like YouTube Music, Spotify and Apple Music. 	
 										</p>
 		
 										<div class="container" style="text-align:center;margin-top: 3rem;margin-bottom: 3rem;">

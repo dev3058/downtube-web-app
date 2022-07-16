@@ -20,6 +20,7 @@ import os
 import string
 from .spotify_link_handler import SpotifyLinkHandler
 from .youtube_music_handler import YouTubeMusicSearch
+from .SongLinkAPI import apple_music_spotify
 
 # Create your views here.
 def popular_content(num):
@@ -155,7 +156,9 @@ def videolink(request):
             elif 'spotify.com/track/' in link_data: 
                 return audiohandler(request, link_data, spotify=True)
             elif 'music.youtube' in link_data:
-                return audiohandler(request, link_data, spotify=False) 
+                return audiohandler(request, link_data, spotify=False)
+            elif 'music.apple.' in link_data:
+                return audiohandler(request, apple_music_spotify(request,link_data), spotify=True)
             yt_objs =  yt_obj_fun(v_link = link_data)
             if yt_objs is False:
                 messages.warning(request,'Wrong YouTube Link Detected')
